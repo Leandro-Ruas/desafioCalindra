@@ -16,7 +16,7 @@ public class Endereco {
 	private Long id;
 	
 	@Column(nullable = false)
-	private String endereco;
+	private String logradouro;
 	private Double longitude;
 	private Double latitude;
 	public Long getId() {
@@ -25,11 +25,11 @@ public class Endereco {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getEndereco() {
-		return endereco;
+	public String getLogradouro() {
+		return logradouro;
 	}
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 	public Double getLongitude() {
 		return longitude;

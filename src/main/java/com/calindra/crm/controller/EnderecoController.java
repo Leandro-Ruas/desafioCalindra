@@ -1,7 +1,9 @@
 package com.calindra.crm.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.calindra.crm.dto.EnderecoDto;
 import com.calindra.crm.feign.EnderecoResponse;
 import com.calindra.crm.feign.Geolocalizacao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +35,17 @@ public class EnderecoController {
 	}
 
 	@GetMapping
-	public List<Endereco> listar() {
-		EnderecoResponse doc = geolocalizacao.consulta("Praça Mal. Âncora, 122 Centro, Rio de Janeiro RJ, 20021200", "AIzaSyCLaOuOUXCDeg13hxuh_FNoyE7sFqgBW78");
-		System.out.println(doc.toString());
-		return enderecoRepository.findAll();
+	public List<EnderecoResponse> listar() {
+		List<Endereco> enderecos = enderecoRepository.findAll();
+		List<EnderecoResponse> enderecosResponse = new ArrayList<>();
+		
+		for(Endereco endereco: enderecos){
+			EnderecoResponse enderecoResponse = geolocalizacao.consulta(endereco.getLogradouro(), "AIzaSyCLaOuOUXCDeg13hxuh_FNoyE7sFqgBW78");
+			enderecosResponse.add(enderecoResponse);
+		}
+		return enderecosResponse;
 	}
+	
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -46,3 +54,7 @@ public class EnderecoController {
 	}
 
 }
+
+
+	
+
